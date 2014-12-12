@@ -350,9 +350,10 @@ class SoapProtocol(Protocol):
         return self._name_mapping[service]
 
     def accept(self, req):
-        for ct in self.content_types:
-            if req.headers['Content-Type'].startswith(ct):
-                return True
+        if 'Content-Type' in req.headers:
+            for ct in self.content_types:
+                if req.headers['Content-Type'].startswith(ct):
+                    return True
         if req.headers.get("Soapaction"):
             return True
         return False
