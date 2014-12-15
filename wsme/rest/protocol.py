@@ -37,7 +37,8 @@ class RestProtocol(Protocol):
         if request.headers.get('Accept') in self.content_types:
             return True
         for ct in self.content_types:
-            if request.headers['Content-Type'].startswith(ct):
+	    req_ct = request.headers.get('Content-Type')
+            if req_ct and req_ct.startswith(ct):
                 return True
         return False
 
